@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kamalia Blunt — AI & Data Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+    /* Palette: warm neutrals with a sharp blue accent */
+    --ink: #1a1a2e;
+    --ink-light: #2d2d44;
+    --ink-muted: #6b6b8a;
+    --paper: #faf9f7;
+    --paper-warm: #f5f3ef;
+    --paper-cool: #eef0f4;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-glow: rgba(37, 99, 235, 0.12);
+    --accent-warm: #f59e0b;
+    --success: #059669;
+    --surface: #ffffff;
+    --border: #e5e2dc;
+    --border-light: #f0ede8;
+
+    /* Typography */
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Spacing scale */
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-6: 1.5rem;
+    --sp-8: 2rem;
+    --sp-12: 3rem;
+    --sp-16: 4rem;
+    --sp-24: 6rem;
+
+    /* Radius */
+    --r-sm: 6px;
+    --r-md: 12px;
+    --r-lg: 20px;
+    --r-full: 100px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(26,26,46,0.05);
+    --shadow-md: 0 4px 12px rgba(26,26,46,0.08);
+    --shadow-lg: 0 12px 32px rgba(26,26,46,0.1);
+    --shadow-glow: 0 0 30px rgba(37, 99, 235, 0.15);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--accent);
+    color: white;
+}
+
+/* ===== NAV ===== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(250, 249, 247, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: var(--sp-1);
+    padding: var(--sp-3) var(--sp-4);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.nav-menu a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--r-full);
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--ink);
+    background: var(--accent-glow);
+}
+
+/* ===== HERO ===== */
+.hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-24) var(--sp-4);
+    background: var(--ink);
+    color: white;
+    overflow: hidden;
+}
+
+.hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.12;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    text-align: center;
+}
+
+.hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: var(--sp-4);
+    font-weight: 400;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: var(--sp-6);
+    letter-spacing: -0.02em;
+}
+
+.hero-tagline {
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin: 0 auto var(--sp-12);
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+.highlight {
+    color: var(--accent-warm);
+    font-weight: 500;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--sp-12);
+    padding-top: var(--sp-8);
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    display: inline;
+    line-height: 1;
+}
+
+.stat-suffix {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: var(--sp-2);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ===== MAIN & SECTIONS ===== */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--sp-6);
+}
+
+section {
+    padding: var(--sp-16) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: var(--sp-3);
+}
+
+h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 400;
+    margin-bottom: var(--sp-8);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+
+/* ===== ABOUT ===== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--sp-8);
+    align-items: start;
+}
+
+.about-text .lead {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: var(--sp-4);
+    font-weight: 400;
+}
+
+.about-text p {
+    color: var(--ink-muted);
+    margin-bottom: var(--sp-4);
+    font-size: 0.98rem;
+}
+
+.about-text strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.about-text em {
+    font-style: italic;
+    color: var(--ink-light);
+}
+
+.about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    box-shadow: var(--shadow-sm);
+}
+
+.about-card-header {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: var(--sp-3);
+}
+
+.about-card-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding: var(--sp-2) 0;
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+}
+
+.about-card-item em {
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+}
+
+.about-card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+.about-card-dot.active {
+    background: var(--success);
+    box-shadow: 0 0 8px rgba(5, 150, 105, 0.4);
+}
+
+/* ===== SKILLS ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+}
+
+.skill-category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.skill-cat-title {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: var(--sp-4);
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+}
+
+.skill-icon {
+    color: var(--accent);
+    font-size: 0.7rem;
+}
+
+.skill-category ul {
+    list-style: none;
+}
+
+.skill-category li {
+    padding: var(--sp-2) 0;
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--border-light);
+    transition: color 0.2s ease;
+}
+
+.skill-category li:last-child {
+    border-bottom: none;
+}
+
+.skill-category:hover li {
+    color: var(--ink-light);
+}
+
+/* ===== EXPERIENCE / TIMELINE ===== */
+.timeline {
+    position: relative;
+    padding-left: var(--sp-8);
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: var(--sp-8);
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: calc(-1 * var(--sp-8) + -1px);
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+    z-index: 1;
+}
+
+.timeline-item:first-child .timeline-marker {
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.timeline-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.job-meta {
+    display: flex;
+    gap: var(--sp-3);
+    align-items: center;
+    margin-bottom: var(--sp-2);
+    flex-wrap: wrap;
+}
+
+.job-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+}
+
+.job-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-glow);
+    padding: var(--sp-1) var(--sp-2);
+    border-radius: var(--r-sm);
+}
+
+.timeline-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: var(--sp-1);
+}
+
+.job-org {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--sp-3);
+    font-weight: 500;
+}
+
+.job-desc {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+}
+
+/* ===== PROJECTS ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+}
+
+.project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.project-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.project-card.featured {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--paper-cool) 100%);
+}
+
+.project-card-badge {
+    position: absolute;
+    top: var(--sp-4);
+    right: var(--sp-4);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: white;
+    background: var(--accent);
+    padding: var(--sp-1) var(--sp-3);
+    border-radius: var(--r-full);
+}
+
+.project-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: var(--sp-3);
+}
+
+.project-desc {
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    margin-bottom: var(--sp-4);
+    line-height: 1.7;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    margin-top: var(--sp-4);
+}
+
+.project-tech span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: var(--sp-1) var(--sp-3);
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    color: var(--ink-muted);
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: var(--sp-4);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.project-link:hover {
+    color: var(--accent-hover);
+}
+
+.project-link.muted {
+    color: var(--ink-muted);
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* ===== AI PROMPT LAB ===== */
+.prompt-lab {
+    margin-top: var(--sp-6);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--ink);
+    color: white;
+}
+
+.prompt-tabs {
+    display: flex;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    overflow-x: auto;
+}
+
+.prompt-tab {
+    flex: 1;
+    padding: var(--sp-3) var(--sp-4);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid transparent;
+}
+
+.prompt-tab:hover {
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.03);
+}
+
+.prompt-tab.active {
+    color: var(--accent-warm);
+    border-bottom-color: var(--accent-warm);
+    background: rgba(255,255,255,0.05);
+}
+
+.prompt-display {
+    padding: var(--sp-6);
+}
+
+.prompt-section {
+    margin-bottom: var(--sp-6);
+}
+
+.prompt-section:last-child {
+    margin-bottom: 0;
+}
+
+.prompt-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-warm);
+    display: block;
+    margin-bottom: var(--sp-2);
+}
+
+.prompt-section p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.prompt-section pre {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--r-sm);
+    padding: var(--sp-4);
+    overflow-x: auto;
+}
+
+.prompt-section code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.85);
+    white-space: pre-wrap;
+    line-height: 1.7;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-4);
+}
+
+.testimonial {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.testimonial blockquote {
+    margin: 0;
+    position: relative;
+    padding-left: var(--sp-4);
+    border-left: 3px solid var(--accent);
+}
+
+.testimonial blockquote p {
+    font-size: 0.92rem;
+    color: var(--ink-light);
+    line-height: 1.75;
+    font-style: italic;
+}
+
+.testimonial-author {
+    margin-top: var(--sp-4);
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--border-light);
+}
+
+.testimonial-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--ink);
+}
+
+.testimonial-role {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin-top: var(--sp-1);
+}
+
+/* ===== PUBLISHED WORK ===== */
+.published-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-4);
+}
+
+.published-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--sp-6);
+    transition: all 0.3s ease;
+}
+
+.published-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.published-item.placeholder {
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+.published-type {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--sp-2);
+}
+
+.published-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    margin-bottom: var(--sp-2);
+    font-weight: 400;
+}
+
+.published-item p {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin-bottom: var(--sp-3);
+}
+
+.published-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.published-link:hover {
+    color: var(--accent-hover);
+}
+
+/* ===== CONNECT ===== */
+.connect-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--sp-8);
+    align-items: start;
+}
+
+.connect-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+}
+
+.connect-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-6);
+    border-radius: var(--r-full);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--border);
+    color: var(--ink);
+    background: var(--surface);
+    min-width: 180px;
+}
+
+.connect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.connect-btn.github:hover {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+}
+
+.connect-btn.linkedin:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.connect-btn.email:hover {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+.connect-icon {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    width: 28px;
+    text-align: center;
+}
+
+/* ===== CONTACT FORM ===== */
+.connect-form-area h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: var(--sp-4);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: var(--sp-3) var(--sp-4);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.contact-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.contact-form button {
+    align-self: flex-start;
+    padding: var(--sp-3) var(--sp-6);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--r-full);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.contact-form button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== MESSAGE LIST ===== */
+.message-list {
+    list-style: none;
+    margin-top: var(--sp-4);
+}
+
+.message-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    background: var(--paper-warm);
+    border-radius: var(--r-sm);
+    margin-bottom: var(--sp-2);
+    font-size: 0.88rem;
+    border: 1px solid var(--border-light);
+    animation: slideIn 0.3s ease;
+}
+
+.message-list li a {
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.message-list li span {
+    flex: 1;
+    color: var(--ink-muted);
+}
+
+.message-list li button {
+    background: none;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    padding: var(--sp-1) var(--sp-2);
+    border-radius: var(--r-sm);
+    transition: all 0.2s ease;
+}
+
+.message-list li button:hover {
+    background: rgba(0,0,0,0.05);
+    color: var(--ink);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: var(--sp-8) var(--sp-4);
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll-reveal base (JS adds .visible) */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .published-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .connect-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .connect-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .hero-stats {
+        gap: var(--sp-6);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .hero {
+        min-height: 70vh;
+        padding: calc(var(--sp-24) + 40px) var(--sp-4) var(--sp-16);
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--sp-4);
+        align-items: center;
+    }
+
+    .stat-number, .stat-suffix {
+        font-size: 2rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-menu {
+        gap: 0;
+        padding: var(--sp-2);
+    }
+
+    .nav-menu a {
+        font-size: 0.75rem;
+        padding: var(--sp-2) var(--sp-2);
+    }
+
+    main {
+        padding: 0 var(--sp-4);
+    }
+
+    section {
+        padding: var(--sp-8) 0;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .timeline {
+        padding-left: var(--sp-6);
+    }
+
+    .timeline-marker {
+        left: calc(-1 * var(--sp-6) + -1px);
+    }
+
+    .prompt-tabs {
+        flex-wrap: nowrap;
+    }
+
+    .prompt-tab {
+        padding: var(--sp-2) var(--sp-3);
+        font-size: 0.7rem;
+    }
+
+    .connect-links {
+        flex-direction: column;
+    }
+
+    .connect-btn {
+        min-width: unset;
+    }
+}
+</style></head>
+<body>
+
+    <!-- ===== FLOATING NAV ===== -->
+    <header>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#published">Published</a></li>
+                <li><a href="#connect">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-grain"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">AI Learning Partner · Data Analyst · Storyteller</p>
+            <h1>Kamalia Blunt</h1>
+            <p class="hero-tagline">I turn complex data into clear insight — and help organizations go from <span class="highlight">AI-curious</span> to <span class="highlight">AI-confident</span>.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="7">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Years in Data & Analytics</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="5">0</span>
+                    <span class="stat-label">Workplace & Writing Awards</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="3">0</span>
+                    <span class="stat-label">Federal Agencies Served</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+        <span class="section-label">01 / About</span>
+        <h2>Who I Am</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p class="lead">Data analytics professional and AI training specialist with 7+ years transforming complex datasets into strategic, actionable insights across federal, public health, and nonprofit sectors.</p>
+                <p>Currently an <strong>AI Learning Partner at OptimaNova</strong>, I design and deliver hands-on training that makes AI accessible and practical for small businesses and mission-driven organizations. My background in public health surveillance, program evaluation, and workforce analytics gives me a unique edge — I don't just understand AI tools, I understand the <em>real-world problems</em> they need to solve.</p>
+                <p>I have conversational Spanish skills, I'm an award-winning writer, and I'm someone who thrives at the intersection of data, people, and technology.</p>
+            </div>
+            <div class="about-card">
+                <div class="about-card-header">Currently</div>
+                <div class="about-card-item">
+                    <span class="about-card-dot active"></span>
+                    AI Learning Partner — OptimaNova
+                </div>
+                <div class="about-card-item">
+                    <span class="about-card-dot active"></span>
+                    AI Training Specialist — Handshake
+                </div>
+                <div class="about-card-item">
+                    <span class="about-card-dot"></span>
+                    SHRM Educational Course Credit — UMD Global Campus
+                </div>
+
+                <div class="about-card-header" style="margin-top: 1.5rem;">Education</div>
+                <div class="about-card-item">
+                    <span class="about-card-dot"></span>
+                    M.S. Health Promotion Mgmt — American University <em>(3.96 GPA)</em>
+                </div>
+                <div class="about-card-item">
+                    <span class="about-card-dot"></span>
+                    B.A. Spanish Language & Lit — University of Georgia
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+        <span class="section-label">02 / Skills</span>
+        <h2>What I Work With</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3 class="skill-cat-title"><span class="skill-icon">◇</span> AI & Data</h3>
+                <ul>
+                    <li>AI Training Design & Delivery</li>
+                    <li>Data Analysis & Storytelling</li>
+                    <li>Survey Design (Qualtrics, MS Forms)</li>
+                    <li>Data Annotation & QA</li>
+                    <li>SPSS</li>
+                    <li>Prompt Engineering</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-cat-title"><span class="skill-icon">◇</span> Development</h3>
+                <ul>
+                    <li>JavaScript (Fundamentals)</li>
+                    <li>HTML5 · CSS3</li>
+                    <li>Responsive Web Design</li>
+                    <li>Git · GitHub</li>
+                    <li>Website Design & Management</li>
+                    <li>508 Accessibility Compliance</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-cat-title"><span class="skill-icon">◇</span> Tools & Platforms</h3>
+                <ul>
+                    <li>Advanced Excel</li>
+                    <li>Google Workspace</li>
+                    <li>Workiva (Wdesk)</li>
+                    <li>Zintellect Recruitment</li>
+                    <li>Constant Contact · MailChimp</li>
+                    <li>Database Management</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3 class="skill-cat-title"><span class="skill-icon">◇</span> Professional</h3>
+                <ul>
+                    <li>Stakeholder Engagement</li>
+                    <li>Training & Development</li>
+                    <li>Change Management</li>
+                    <li>Strategic Communications</li>
+                    <li>Program Evaluation</li>
+                    <li>Conversational Spanish</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience">
+        <span class="section-label">03 / Experience</span>
+        <h2>Where I've Made Impact</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2024 — Present</span>
+                        <span class="job-tag">AI / Training</span>
+                    </div>
+                    <h3>AI Learning Partner</h3>
+                    <p class="job-org">OptimaNova</p>
+                    <p class="job-desc">Design and deliver hands-on AI training sessions for small businesses and nonprofits. Lead "AI ON Thursdays" weekly series. Develop customized curriculum making complex AI concepts accessible and actionable for mission-driven professionals.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2025 — Present</span>
+                        <span class="job-tag">AI / Evaluation</span>
+                    </div>
+                    <h3>AI Model Evaluation Specialist</h3>
+                    <p class="job-org">Handshake AI Fellowship Program (Remote)</p>
+                    <p class="job-desc">Evaluate and annotate AI model outputs for quality, accuracy, and safety. Conduct image-based assessments and provide detailed justifications for model training improvements. Manage parallel workflows across multiple task types while maintaining quality standards.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2024 — Present</span>
+                        <span class="job-tag">Data / HR</span>
+                    </div>
+                    <h3>Employee Experience Program Analyst</h3>
+                    <p class="job-org">US Environmental Protection Agency</p>
+                    <p class="job-desc">Led cross-functional collaboration to develop inclusive leadership program. Redesigned survey instruments using Qualtrics and Microsoft Forms. Established dedicated pathfinder team for data management processes. Developed stay interview program across divisions.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2021 — 2024</span>
+                        <span class="job-tag">Data / Programs</span>
+                    </div>
+                    <h3>Small Business Program Facilitator</h3>
+                    <p class="job-org">Morgan State University — Entrepreneurial Development Center</p>
+                    <p class="job-desc">Led 100% of data collection efforts across all program initiatives. Maintained quality control over 85% of program documents. Ensured compliance with local regulations while collaborating with internal and external stakeholders.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2021 — 2024</span>
+                        <span class="job-tag">Analytics / Comms</span>
+                    </div>
+                    <h3>Senior Analyst & Communications Specialist</h3>
+                    <p class="job-org">Lord and Tucker Management Consultants</p>
+                    <p class="job-desc">Designed and launched company website achieving 3,000+ visitors and 4,100+ social media views in first year. Developed integrated communications strategies with data-driven effectiveness analysis. Mentored junior staff.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2020 — 2021</span>
+                        <span class="job-tag">Data / Federal</span>
+                    </div>
+                    <h3>Senior Administrative Analyst</h3>
+                    <p class="job-org">National Center for Science & Engineering Statistics (NSF)</p>
+                    <p class="job-desc">Led analytics team of 4 to create dashboard tracking million-dollar funding obligations across NCSES divisions. Co-led virtual job fair outreach reaching 2,400+ attendees across 2 ORISE events. Strategized multi-division recruitment for program fellows.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="job-meta">
+                        <span class="job-date">2017 — 2020</span>
+                        <span class="job-tag">Data / Public Health</span>
+                    </div>
+                    <h3>Violent Death Reporting System Data Analyst</h3>
+                    <p class="job-org">Washington DC Office of the Chief Medical Examiner</p>
+                    <p class="job-desc">Processed and analyzed 500+ confidential case files. Trained and co-supervised team of data abstractors. Facilitated multi-agency collaboration with DC Metro Police, Dept. of Forensic Sciences, and DC Health. Earned Exemplary Service Award (2018) and Above & Beyond Award (2019). Recognized by CDC for ranking DC 2nd in case initiation among smaller states.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+        <span class="section-label">04 / Projects</span>
+        <h2>What I've Built</h2>
+        <div class="projects-grid">
+            
+            <!-- Project 1: AI Prompt Lab -->
+            <div class="project-card featured">
+                <div class="project-card-badge">Interactive</div>
+                <h3>AI Prompt Lab</h3>
+                <p class="project-desc">An interactive showcase demonstrating practical prompt engineering techniques. Select a scenario, see the prompt, and understand the thinking behind effective AI communication.</p>
+                <div class="prompt-lab">
+                    <div class="prompt-tabs">
+                        <button class="prompt-tab active" data-prompt="business">Small Business</button>
+                        <button class="prompt-tab" data-prompt="data">Data Analysis</button>
+                        <button class="prompt-tab" data-prompt="nonprofit">Nonprofit</button>
+                        <button class="prompt-tab" data-prompt="training">Training</button>
+                    </div>
+                    <div class="prompt-display">
+                        <div class="prompt-section">
+                            <span class="prompt-label">Scenario</span>
+                            <p id="prompt-scenario"></p>
+                        </div>
+                        <div class="prompt-section">
+                            <span class="prompt-label">Prompt</span>
+                            <pre id="prompt-text"><code></code></pre>
+                        </div>
+                        <div class="prompt-section">
+                            <span class="prompt-label">Why It Works</span>
+                            <p id="prompt-rationale"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span>Prompt Engineering</span>
+                    <span>AI Strategy</span>
+                    <span>JavaScript</span>
+                </div>
+            </div>
+
+            <!-- Project 2: This Portfolio -->
+            <div class="project-card">
+                <h3>This Portfolio</h3>
+                <p class="project-desc">A responsive, accessible portfolio designed in collaboration with Claude AI and built with vanilla JavaScript, CSS custom properties, scroll-driven animations, and interactive elements. A real example of leveraging AI as a development partner.</p>
+                <div class="project-tech">
+                    <span>JavaScript</span>
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>AI-Assisted Development</span>
+                </div>
+                <a href="https://github.com/B1untKam" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+            <!-- Project 3: Published Work (placeholder) -->
+            <div class="project-card">
+                <h3>Data Dashboards & Reports</h3>
+                <p class="project-desc">Data visualization and reporting work from federal agencies including dashboards tracking multi-million dollar funding obligations and public health surveillance reports recognized by the CDC.</p>
+                <div class="project-tech">
+                    <span>Excel</span>
+                    <span>Data Visualization</span>
+                    <span>Federal Analytics</span>
+                    <span>Reporting</span>
+                </div>
+                <span class="project-link muted">Links coming soon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHAT OTHERS SAY ===== -->
+    <section id="testimonials">
+        <span class="section-label">05 / What Others Say</span>
+        <h2>In Their Words</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <blockquote>
+                    <p>"[Quote from letter of recommendation — paste here]"</p>
+                </blockquote>
+                <div class="testimonial-author">
+                    <span class="testimonial-name">[Name]</span>
+                    <span class="testimonial-role">[Title, Organization]</span>
+                </div>
+            </div>
+            <div class="testimonial">
+                <blockquote>
+                    <p>"[Quote from book review — paste here]"</p>
+                </blockquote>
+                <div class="testimonial-author">
+                    <span class="testimonial-name">[Reviewer Name]</span>
+                    <span class="testimonial-role">[Source]</span>
+                </div>
+            </div>
+            <div class="testimonial">
+                <blockquote>
+                    <p>"[Another endorsement — paste here]"</p>
+                </blockquote>
+                <div class="testimonial-author">
+                    <span class="testimonial-name">[Name]</span>
+                    <span class="testimonial-role">[Title, Organization]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PUBLISHED WORK ===== -->
+    <section id="published">
+        <span class="section-label">06 / Published Work</span>
+        <h2>Recognition & Writing</h2>
+        <div class="published-grid">
+            <div class="published-item">
+                <span class="published-type">Award</span>
+                <h3>Universal Declaration of Human Rights Essay Contest</h3>
+                <p>1st Place Winner — Honored by the Mayor of Atlanta and the Mayor of Nuremberg, Germany at Spelman College</p>
+                <a href="https://apstoday.us/tag/spelman-college/" target="_blank" class="published-link">Read More →</a>
+            </div>
+            <div class="published-item">
+                <span class="published-type">Scholarship</span>
+                <h3>Life Lessons Scholarship — Life Happens</h3>
+                <p>Multi-scholarship writing winner recognized for essay excellence</p>
+                <a href="https://lifehappens.co/life-lessons-scholarship-program/archive/" target="_blank" class="published-link">View Archive →</a>
+            </div>
+            <div class="published-item">
+                <span class="published-type">Scholarship</span>
+                <h3>Gates Millennium Scholarship</h3>
+                <p>Selected as a Gates Millennium Scholar — featured in the Atlanta Journal-Constitution</p>
+                <a href="https://www.ajc.com/news/local/gates-millennium-scholarship-winners/LV7Nn6rbrVG0fpaz4hsI3K/" target="_blank" class="published-link">AJC Feature →</a>
+            </div>
+            <div class="published-item placeholder">
+                <span class="published-type">Your Link</span>
+                <h3>More work coming soon</h3>
+                <p>Additional reports, dashboards, and published writing will be added here.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONNECT ===== -->
+    <section id="connect">
+        <span class="section-label">07 / Connect</span>
+        <h2>Let's Talk</h2>
+        <div class="connect-grid">
+            <div class="connect-links">
+                <a href="https://github.com/B1untKam" target="_blank" class="connect-btn github">
+                    <span class="connect-icon">⌘</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/kamalia-b-18064666/" target="_blank" class="connect-btn linkedin">
+                    <span class="connect-icon">in</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:Blunt.Kamalia@gmail.com" class="connect-btn email">
+                    <span class="connect-icon">@</span>
+                    <span>Email</span>
+                </a>
+            </div>
+            <div class="connect-form-area">
+                <h3>Drop a note</h3>
+                <form name="leave_message" class="contact-form">
+                    <input type="text" id="usersName" name="usersName" placeholder="Your name" required>
+                    <input type="email" id="usersEmail" name="usersEmail" placeholder="Your email" required>
+                    <textarea id="usersMessage" name="usersMessage" placeholder="What's on your mind?" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <ul class="message-list" id="messageList"></ul>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer>
+        <!-- Footer content added via JS -->
+    </footer>
+
+    
+</body>
+<script>
+// ===== FOOTER =====
+const footer = document.querySelector('footer');
+const thisYear = new Date().getFullYear();
+footer.innerHTML = `<p>Kamalia Blunt &copy; ${thisYear} &mdash; Designed with <a href="https://claude.ai" target="_blank" style="color: var(--accent); text-decoration: none;">Claude AI</a>, built with JavaScript, curiosity, and a growth mindset.</p>`;
+
+// ===== ANIMATED STAT COUNTER =====
+function animateCounters() {
+    const stats = document.querySelectorAll('.stat-number[data-target]');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-target'));
+                const duration = 1500;
+                const start = performance.now();
+                
+                function update(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease out cubic
+                    const ease = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(target * ease);
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                
+                requestAnimationFrame(update);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    stats.forEach(stat => observer.observe(stat));
+}
+
+animateCounters();
+
+// ===== SCROLL REVEAL =====
+function initScrollReveal() {
+    const sections = document.querySelectorAll('main section');
+    sections.forEach(s => s.classList.add('reveal'));
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.08 });
+    
+    sections.forEach(section => observer.observe(section));
+}
+
+initScrollReveal();
+
+// ===== NAV ACTIVE STATE =====
+function initNavHighlight() {
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const sections = document.querySelectorAll('main section[id]');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.nav-menu a[href="#${entry.target.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        });
+    }, { threshold: 0.3, rootMargin: '-80px 0px 0px 0px' });
+    
+    sections.forEach(section => observer.observe(section));
+}
+
+initNavHighlight();
+
+// ===== AI PROMPT LAB =====
+const prompts = {
+    business: {
+        scenario: "A local bakery owner wants to use AI to manage inventory but doesn't know where to start. They're skeptical that AI is \"only for big companies.\"",
+        prompt: `You are an inventory management assistant for a small bakery called "Sweet Rise" that sells 15 types of baked goods. 
+
+Your job: Analyze the last 30 days of sales data I'll provide and give me:
+1. Which 3 items I'm overproducing (waste)
+2. Which 3 items I should make more of (missed sales)
+3. A suggested daily production schedule for next week
+
+Important context:
+- We're a 2-person team, so keep suggestions realistic
+- Weekend sales are 2x weekday volume  
+- We can only bake 150 total items per day
+- Format your response as a simple table I can print and tape to the wall
+
+Here's my sales data: [paste data]`,
+        rationale: "This prompt works because it gives the AI a specific role, provides clear constraints (team size, capacity limits), asks for actionable output in a practical format, and accounts for real-world patterns like weekend surges. It shows the bakery owner that AI isn't magic — it's a tool that works best with good instructions and real data."
+    },
+    data: {
+        scenario: "A program manager needs to analyze survey responses from 200+ employees to identify themes around workplace satisfaction, but doesn't have time to read each one individually.",
+        prompt: `Analyze the following open-ended survey responses about workplace satisfaction.
+
+For each response, categorize it into:
+- Primary theme (choose from: Leadership, Communication, Work-Life Balance, Growth Opportunities, Compensation, Team Dynamics, Tools & Resources)
+- Sentiment (Positive / Neutral / Negative)
+- Action priority (High / Medium / Low)
+
+Then provide:
+1. A summary table showing theme frequency and average sentiment
+2. Top 3 urgent themes that need leadership attention
+3. Direct quotes (anonymized) that best represent each major theme
+4. 2-3 recommended next steps based on the data
+
+Format as a structured report I can present to division leadership. Use clear headers and keep language professional but accessible.
+
+Survey responses: [paste responses]`,
+        rationale: "This prompt turns unstructured qualitative data into an executive-ready report. It defines the taxonomy upfront (preventing the AI from creating inconsistent categories), requests both quantitative summary and qualitative evidence, and specifies the audience. The 'action priority' field ensures the output is decision-oriented, not just descriptive."
+    },
+    nonprofit: {
+        scenario: "A community health nonprofit wants to write a grant application but their small team has never used AI for writing assistance. They're worried it will sound 'robotic.'",
+        prompt: `You are helping a small community health nonprofit draft a grant narrative. Your role is collaborative editor — NOT the author. 
+
+I'll provide our rough notes and you'll help us:
+1. Organize them into the funder's required format (see below)
+2. Strengthen language while keeping our authentic voice
+3. Flag any claims that need data/citations to back them up
+4. Suggest where to add community quotes or stories for impact
+
+Rules:
+- Preserve our conversational, community-centered tone
+- Don't use jargon like "synergize" or "leverage" — our community partners won't connect with that
+- Keep paragraphs short (3-4 sentences max)
+- Highlight in [BRACKETS] any section where you think we need more specific data
+
+Funder's required sections:
+- Statement of Need
+- Program Design  
+- Expected Outcomes
+- Sustainability Plan
+
+Our rough notes: [paste notes]`,
+        rationale: "This prompt addresses the #1 fear nonprofits have about AI: losing their voice. By defining AI as a 'collaborative editor' rather than author, it preserves authenticity. The explicit rules about tone and jargon keep the output grounded. The bracket convention for missing data turns AI into a QA partner, not just a writing tool."
+    },
+    training: {
+        scenario: "A manager needs to onboard 5 new team members on a complex internal process, but the existing training documentation is 47 pages long and outdated.",
+        prompt: `I'm going to paste a 47-page internal process document. Help me transform it into a modern onboarding kit.
+
+Create the following deliverables:
+
+1. ONE-PAGE QUICK START GUIDE
+   - The 5 most critical steps a new hire needs on Day 1
+   - Format: numbered checklist with brief descriptions
+   
+2. FAQ DOCUMENT (max 2 pages)
+   - Anticipate the top 10 questions a new hire would ask
+   - Write answers in plain language (assume no prior knowledge)
+   
+3. PROCESS FLOW SUMMARY
+   - Describe the end-to-end process in 8 steps or fewer
+   - For each step: Who does it → What they do → Where it goes next
+   
+4. FLAG OUTDATED CONTENT
+   - List any instructions that reference specific software versions, dates, or contacts that may need updating
+   - Mark with [VERIFY] tag
+
+Keep everything scannable: use headers, bullets, and bold for key terms. New hires should be able to find any answer in under 30 seconds.
+
+Document: [paste document]`,
+        rationale: "This prompt transforms a common pain point (outdated, bloated documentation) into four distinct, usable deliverables. The '30-second find' constraint forces conciseness. The [VERIFY] convention turns AI into an audit tool for stale content. Each deliverable has a clear format spec, so the output is immediately usable — no reformatting needed."
+    }
+};
+
+function initPromptLab() {
+    const tabs = document.querySelectorAll('.prompt-tab');
+    const scenario = document.getElementById('prompt-scenario');
+    const text = document.querySelector('#prompt-text code');
+    const rationale = document.getElementById('prompt-rationale');
+    
+    function showPrompt(key) {
+        const data = prompts[key];
+        if (!data) return;
+        
+        scenario.textContent = data.scenario;
+        text.textContent = data.prompt;
+        rationale.textContent = data.rationale;
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelector(`[data-prompt="${key}"]`).classList.add('active');
+    }
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            showPrompt(tab.getAttribute('data-prompt'));
+        });
+    });
+    
+    // Show first prompt by default
+    showPrompt('business');
+}
+
+initPromptLab();
+
+// ===== CONTACT FORM =====
+const messageForm = document.querySelector('form[name="leave_message"]');
+const messageList = document.getElementById('messageList');
+
+messageForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const name = event.target.usersName.value;
+    const email = event.target.usersEmail.value;
+    const message = event.target.usersMessage.value;
+    
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="mailto:${email}">${name}</a> <span>${message}</span>`;
+    
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '✕';
+    removeBtn.type = 'button';
+    removeBtn.addEventListener('click', () => li.remove());
+    
+    li.appendChild(removeBtn);
+    messageList.appendChild(li);
+    messageForm.reset();
+});
+</script></html>
